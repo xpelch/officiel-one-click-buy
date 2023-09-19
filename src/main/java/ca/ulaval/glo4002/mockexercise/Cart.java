@@ -19,5 +19,8 @@ public class Cart {
         return products;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
 }
