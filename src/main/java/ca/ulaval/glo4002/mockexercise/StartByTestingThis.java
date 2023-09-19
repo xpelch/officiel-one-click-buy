@@ -15,19 +15,18 @@ public class StartByTestingThis {
         this.invoiceFactory = invoiceFactory;
     }
 
-    public Invoice oneClickBuy(String clientEmail, String productSku) {
-        // Étape 1 : Créer le cart avec le CartFactory
-        Cart shoppingCart = cartFactory.create(clientEmail);
+    // Étape 1 : Créer le cart avec le CartFactory
+    // Étape 2 : Trouver le produit avec le ProductRepository
+    // Étape 3 : Ajouter le produit au cart
+    // Étape 4 : Pour chaque item du cart, ajouter une ligne sur l'invoice
+    // Étape 5 : Retourner l'invoice
 
-        // Étape 2 : Trouver le produit avec le ProductRepository
+    public Invoice oneClickBuy(String clientEmail, String productSku) {
+        Cart shoppingCart = cartFactory.create(clientEmail);
         Product product = productRepository.findBySku(productSku);
 
-        // Étape 3 : Ajouter le produit au cart
         shoppingCart.addProduct(product);
 
-        // Étape 4 : Pour chaque item du cart, ajouter une ligne sur l'invoice
-        // Étape 5 : Retourner l'invoice
         return invoiceFactory.createInvoice(shoppingCart);
-
     }
 }
