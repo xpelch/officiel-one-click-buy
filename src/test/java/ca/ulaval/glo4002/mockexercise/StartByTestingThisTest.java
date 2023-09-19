@@ -2,13 +2,13 @@ package ca.ulaval.glo4002.mockexercise;
 
 import ca.ulaval.glo4002.mockexercise.do_not_edit.CartFactory;
 import ca.ulaval.glo4002.mockexercise.do_not_edit.Invoice;
-import ca.ulaval.glo4002.mockexercise.do_not_edit.InvoiceLine;
 import ca.ulaval.glo4002.mockexercise.do_not_edit.ProductRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class StartByTestingThisTest {
@@ -17,6 +17,7 @@ public class StartByTestingThisTest {
     private final CartFactory cartFactory = Mockito.mock(CartFactory.class);
     private final ProductRepository productRepository = Mockito.mock(ProductRepository.class);
     private final InvoiceFactory invoiceFactory = Mockito.mock(InvoiceFactory.class);
+    private final Invoice invoice = Mockito.mock(Invoice.class);
     private final Product product = Mockito.mock(Product.class);
     private final Cart shoppingCart = Mockito.mock(Cart.class);
     private static final String PRODUCT_SKU = "PRODUCT_SKU";
@@ -88,10 +89,11 @@ public class StartByTestingThisTest {
     public void whenOneClickBuy_thenReturnInvoice() {
         Mockito.when(cartFactory.create(CLIENT_EMAIL)).thenReturn(shoppingCart);
         Mockito.when(productRepository.findBySku(PRODUCT_SKU)).thenReturn(product);
+        Mockito.when(invoiceFactory.createInvoice(shoppingCart)).thenReturn(invoice);
 
-        Invoice invoice = service.oneClickBuy(CLIENT_EMAIL, PRODUCT_SKU);
+        Invoice returnedInvoice = service.oneClickBuy(CLIENT_EMAIL, PRODUCT_SKU);
 
-        Assertions.
+        assertEquals(invoice, returnedInvoice);
     }
 
 }
